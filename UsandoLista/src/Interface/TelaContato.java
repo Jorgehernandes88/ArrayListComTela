@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.sun.javafx.scene.layout.region.Margins.Converter;
+
 import Contatos.Contatos;
 import Contatos.Dados;
 
@@ -36,10 +38,12 @@ public class TelaContato extends JFrame {
 	private JTextField tfTelefone;
 	private JTextField tfEmail;
 	private JTextField tfNome;
-
+	private JTextField tfID;
+	
 	Dados dados = new  Dados();
 	Contatos c = new Contatos();
 	JComboBox comboBox = new JComboBox();
+	
 	
 	/**
 	 * Launch the application.
@@ -88,11 +92,19 @@ public class TelaContato extends JFrame {
 		btSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				
+				
+				Integer id = 0;
+				id = dados.NumeroContatos() + 1;
+				
 				String nome = tfNome.getText();
 				String email= tfEmail.getText();
 				String celular= tfTelefone.getText();
 				
-				Contatos c = new Contatos(nome, email, celular);
+				
+				
+				
+				Contatos c = new Contatos(id,nome, email, celular);
 				
 				
 				dados.CadastraContato(c);
@@ -104,7 +116,7 @@ public class TelaContato extends JFrame {
 				
 				
 				//list.add(c.getNome()+ " - " + c.getEmail()+ " - " + c.getCelular());
-				comboBox.addItem(c.getNome());
+				comboBox.addItem(c.getId());
 				
 			}
 		});		
@@ -112,10 +124,24 @@ public class TelaContato extends JFrame {
 		JButton btBusca = new JButton("Buscar Contato");
 		btBusca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Integer idSelecionado = Integer.parseInt(comboBox.getSelectedItem().toString());
+
+				tfID.setText(dados.RetornaID(idSelecionado)+"");
+				tfNome.setText(dados.RetornaNome(idSelecionado)+"");
+				tfEmail.setText(dados.RetornaEmail(idSelecionado)+"");
+				tfTelefone.setText(dados.RetornaCelular(idSelecionado)+"");
+				
 			}
 		});
 		
 		JLabel lblNomeDosContatos = new JLabel("Nome dos Contatos");
+		
+		tfID = new JTextField();
+		tfID.setEditable(false);
+		tfID.setColumns(10);
+		
+		JLabel lblNmero = new JLabel("N\u00FAmero");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -141,6 +167,12 @@ public class TelaContato extends JFrame {
 									.addComponent(tfEmail))
 								.addComponent(tfTelefone, 398, 398, 398))))
 					.addGap(92))
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGap(83)
+					.addComponent(lblNmero)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tfID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(315, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -165,7 +197,11 @@ public class TelaContato extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btBusca)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(138, Short.MAX_VALUE))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tfID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNmero))
+					.addContainerGap(98, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

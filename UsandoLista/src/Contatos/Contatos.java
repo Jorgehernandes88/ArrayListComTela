@@ -2,6 +2,7 @@ package Contatos;
 
 public class Contatos {
 
+	Integer id;
 	String nome;
 	String email;
 	String celular;
@@ -10,13 +11,22 @@ public class Contatos {
 
 	}
 
-	public Contatos(String nome, String email, String celular) {
+	public Contatos(Integer id, String nome, String email, String celular) {
 		super();
+		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.celular = celular;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String toString() {
 		return nome + " - " + email + " - " + celular;
 		
