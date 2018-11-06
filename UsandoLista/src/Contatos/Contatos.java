@@ -6,19 +6,40 @@ public class Contatos {
 	String nome;
 	String email;
 	String celular;
+	String cpf;
+	String rg;
 
 	public Contatos() {
 
 	}
 
-	public Contatos(Integer id, String nome, String email, String celular) {
+	public Contatos(Integer id, String nome, String email, String celular, String cpf,String rg) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.celular = celular;
+		this.cpf = cpf;
+		this.rg = rg;
+		
 	}
 	
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+
 	public Integer getId() {
 		return id;
 	}

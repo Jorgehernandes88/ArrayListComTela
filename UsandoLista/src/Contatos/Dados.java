@@ -70,4 +70,29 @@ public class Dados {
 		
 		return "";
 	}
+	
+	public String RetornaCPF(Integer ID) {
+		
+		for (Contatos contatos : Listcontatos) {
+			
+			if(contatos.getId() == ID)
+			{
+				return contatos.getCpf();
+			}	
+		}
+		
+		return "";
+	}
+	public String RetornaRG(Integer ID) {
+		
+		for (Contatos contatos : Listcontatos) {
+			
+			if(contatos.getId() == ID)
+			{
+				return contatos.getRg();
+			}	
+		}
+		
+		return "";
+	}
 }
