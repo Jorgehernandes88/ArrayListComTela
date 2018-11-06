@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.sun.javafx.scene.layout.region.Margins.Converter;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
 import Contatos.Contatos;
 import Contatos.Dados;
@@ -35,6 +36,7 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class TelaContato extends JFrame {
 
@@ -116,46 +118,50 @@ public class TelaContato extends JFrame {
 		btSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Integer id = 0;
-				id = dados.NumeroContatos() + 1;
+				if (dados.RetornaID(tfcpf.getText()) == 0) {
+					Integer id = 0;
+					id = dados.NumeroContatos() + 1;
 
-				String nome = tfNome.getText();
-				String email = tfEmail.getText();
-				String celular = tfTelefone.getText();
-				String cpf = tfcpf.getText();
-				String rg = tfRG.getText();
+					String nome = tfNome.getText();
+					String email = tfEmail.getText();
+					String celular = tfTelefone.getText();
+					String cpf = tfcpf.getText();
+					String rg = tfRG.getText();
 
-				Contatos c = new Contatos(id, nome, email, celular, cpf, rg);
+					Contatos c = new Contatos(id, nome, email, celular, cpf, rg);
 
-				dados.CadastraContato(c);
+					dados.CadastraContato(c);
 
-				String cep = tfCEP.getText();
-				String cidade = tfCidade.getText();
-				String bairro = tfBairro.getText();
-				String endereco = tfEndereco.getText();
-				String complemento = tfComplemento.getText();
-				String numero = tfNumero.getText();
+					String cep = tfCEP.getText();
+					String cidade = tfCidade.getText();
+					String bairro = tfBairro.getText();
+					String endereco = tfEndereco.getText();
+					String complemento = tfComplemento.getText();
+					String numero = tfNumero.getText();
 
-				EnderecoContato ec = new EnderecoContato(id, cep, cidade, bairro, endereco, complemento, numero);
+					EnderecoContato ec = new EnderecoContato(id, cep, cidade, bairro, endereco, complemento, numero);
 
-				dadosEndereco.CadastraEndereco(ec);
+					dadosEndereco.CadastraEndereco(ec);
 
 //limpar formulario
 
-				tfID.setText("");
-				tfNome.setText("");
-				tfcpf.setText("");
-				tfRG.setText("");
-				tfEmail.setText("");
-				tfTelefone.setText("");
-				tfCEP.setText("");
-				tfCidade.setText("");
-				tfBairro.setText("");
-				tfEndereco.setText("");
-				tfComplemento.setText("");
-				tfNumero.setText("");
+					tfID.setText("");
+					tfNome.setText("");
+					tfcpf.setText("");
+					tfRG.setText("");
+					tfEmail.setText("");
+					tfTelefone.setText("");
+					tfCEP.setText("");
+					tfCidade.setText("");
+					tfBairro.setText("");
+					tfEndereco.setText("");
+					tfComplemento.setText("");
+					tfNumero.setText("");
 
-				comboBox.addItem(c.getId());
+					comboBox.addItem(c.getId());
+				}else {
+					JOptionPane.showMessageDialog(null, "CPF já cadastrado", "Alerta", NORMAL);
+				}
 
 			}
 		});
@@ -164,21 +170,25 @@ public class TelaContato extends JFrame {
 		btBusca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Integer idSelecionado = Integer.parseInt(comboBox.getSelectedItem().toString());
+				String cpfbusca = tfcpfBusca.getText();
+				Integer idSelecionado = dados.RetornaID(cpfbusca);
 
-				tfID.setText(dados.RetornaID(idSelecionado) + "");
-
-				tfNome.setText(dados.RetornaNome(idSelecionado) + "");
-				tfcpf.setText(dados.RetornaCPF(idSelecionado) + "");
-				tfRG.setText(dados.RetornaRG(idSelecionado) + "");
-				tfEmail.setText(dados.RetornaEmail(idSelecionado) + "");
-				tfTelefone.setText(dados.RetornaCelular(idSelecionado) + "");
-				tfCEP.setText(dadosEndereco.RetornaCEP(idSelecionado));
-				tfCidade.setText(dadosEndereco.RetornaCidade(idSelecionado));
-				tfBairro.setText(dadosEndereco.RetornaBairro(idSelecionado));
-				tfEndereco.setText(dadosEndereco.RetornaEndereco(idSelecionado));
-				tfComplemento.setText(dadosEndereco.RetornaComplemento(idSelecionado));
-				tfNumero.setText(dadosEndereco.RetornaNumero(idSelecionado));
+				if (idSelecionado != 0) {
+					tfID.setText(idSelecionado + "");
+					tfNome.setText(dados.RetornaNome(idSelecionado) + "");
+					tfcpf.setText(dados.RetornaCPF(idSelecionado) + "");
+					tfRG.setText(dados.RetornaRG(idSelecionado) + "");
+					tfEmail.setText(dados.RetornaEmail(idSelecionado) + "");
+					tfTelefone.setText(dados.RetornaCelular(idSelecionado) + "");
+					tfCEP.setText(dadosEndereco.RetornaCEP(idSelecionado));
+					tfCidade.setText(dadosEndereco.RetornaCidade(idSelecionado));
+					tfBairro.setText(dadosEndereco.RetornaBairro(idSelecionado));
+					tfEndereco.setText(dadosEndereco.RetornaEndereco(idSelecionado));
+					tfComplemento.setText(dadosEndereco.RetornaComplemento(idSelecionado));
+					tfNumero.setText(dadosEndereco.RetornaNumero(idSelecionado));
+				} else {
+					JOptionPane.showMessageDialog(null, "Cadastro não encontrado", "Alerta", NORMAL);
+				}
 
 			}
 		});

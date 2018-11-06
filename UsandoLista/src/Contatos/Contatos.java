@@ -24,6 +24,11 @@ public class Contatos {
 		
 	}
 	
+	public String toString() {
+		return nome + " - " + email + " - " + celular  + " - " + cpf  + " - " + rg;
+		
+	}
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -46,11 +51,6 @@ public class Contatos {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String toString() {
-		return nome + " - " + email + " - " + celular;
-		
 	}
 
 	public String getNome() {

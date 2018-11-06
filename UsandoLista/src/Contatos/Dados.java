@@ -22,11 +22,11 @@ public class Dados {
 		
 	}
 	
-	public Integer RetornaID(Integer ID) {
+	public Integer RetornaID(String cpf) {
 		
 		for (Contatos contatos : Listcontatos) {
 			
-			if(contatos.getId() == ID)
+			if(contatos.getCpf().equals(cpf))
 			{
 				return contatos.getId();
 			}	
