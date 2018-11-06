@@ -34,9 +34,6 @@ public class inicio {
 		for (Contatos impcontato : Listcontatos) {
 			System.out.println(impcontato);
 		}
-		
-		
-		
-		
+			
 	}
 }
