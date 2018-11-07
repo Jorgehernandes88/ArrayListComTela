@@ -12,6 +12,22 @@ public class Dados {
 		Listcontatos.add(contato);
 	}
 	
+	public void AtualizarContato(Integer ID,String nome, String email, String celular, String rg) {
+		
+		for (Contatos contatos : Listcontatos) {
+			
+			if(contatos.getId() == ID)
+			{
+				contatos.setNome(nome);
+				contatos.setEmail(email);
+				contatos.setCelular(celular);
+				contatos.setRg(rg);
+			}
+			
+		}
+		
+	}
+	
 	public int NumeroContatos() {
 		
 		return Listcontatos.size();

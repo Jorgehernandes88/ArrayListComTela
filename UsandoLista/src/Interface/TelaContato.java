@@ -174,6 +174,7 @@ public class TelaContato extends JFrame {
 				Integer idSelecionado = dados.RetornaID(cpfbusca);
 
 				if (idSelecionado != 0) {
+									
 					tfID.setText(idSelecionado + "");
 					tfNome.setText(dados.RetornaNome(idSelecionado) + "");
 					tfcpf.setText(dados.RetornaCPF(idSelecionado) + "");
@@ -186,6 +187,7 @@ public class TelaContato extends JFrame {
 					tfEndereco.setText(dadosEndereco.RetornaEndereco(idSelecionado));
 					tfComplemento.setText(dadosEndereco.RetornaComplemento(idSelecionado));
 					tfNumero.setText(dadosEndereco.RetornaNumero(idSelecionado));
+					tfcpf.enable(false);	
 				} else {
 					JOptionPane.showMessageDialog(null, "Cadastro não encontrado", "Alerta", NORMAL);
 				}
@@ -263,128 +265,144 @@ public class TelaContato extends JFrame {
 		tfcpfBusca.setColumns(10);
 
 		JLabel lblCpf_1 = new JLabel("CPF:");
+		
+		JButton btAtualizar = new JButton("Atualizar Cadastro");
+		btAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dados.AtualizarContato(dados.RetornaID(tfcpf.getText()),tfNome.getText(),tfEmail.getText(),tfTelefone.getText(),tfRG.getText());
+				dadosEndereco.AtualizarEndereco(dados.RetornaID(tfcpf.getText()),tfCEP.getText(),tfCidade.getText(),tfBairro.getText(), tfEndereco.getText(), tfComplemento.getText(), tfNumero.getText());
+				
+				JOptionPane.showMessageDialog(null, "Atualizado", "Alerta", NORMAL);
+				
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addGroup(gl_contentPane
-				.createSequentialGroup().addContainerGap()
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(lblNmero_1)
-						.addGroup(gl_contentPane.createSequentialGroup().addGroup(gl_contentPane
-								.createParallelGroup(Alignment.TRAILING)
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNmero_1)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-														.addComponent(lblNomeDosContatos)
-														.addGroup(gl_contentPane.createSequentialGroup()
-																.addComponent(lblComplemento)
-																.addPreferredGap(ComponentPlacement.UNRELATED)))
-												.addComponent(lblEndereo).addComponent(lblCidade)
-												.addComponent(lblBairro).addComponent(lblTelefone)
-												.addComponent(lblEmail).addComponent(lblCep).addComponent(lblNmero)
-												.addComponent(lblNome).addComponent(lblCpf).addComponent(lblRg))
-										.addPreferredGap(ComponentPlacement.RELATED))
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblComplemento)
+										.addComponent(lblEndereo)
+										.addComponent(lblCidade)
+										.addComponent(lblBairro)
+										.addComponent(lblTelefone)
+										.addComponent(lblEmail)
+										.addComponent(lblCep)
+										.addComponent(lblNmero)
+										.addComponent(lblNome)
+										.addComponent(lblCpf)
+										.addComponent(lblRg))
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addComponent(lblNomeDosContatos)
 								.addComponent(lblCpf_1))
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addGroup(
-										Alignment.LEADING,
-										gl_contentPane.createSequentialGroup().addGroup(gl_contentPane
-												.createParallelGroup(Alignment.TRAILING, false)
-												.addComponent(tfComplemento)
-												.addComponent(tfNumero, GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
-												.addComponent(tfEndereco).addComponent(tfBairro).addComponent(tfCidade)
-												.addComponent(tfCEP)
-												.addComponent(tfTelefone, GroupLayout.DEFAULT_SIZE, 395,
-														Short.MAX_VALUE)
-												.addComponent(tfEmail, 395, 395, 395)
-												.addComponent(btLimpar, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(btSalvar, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-												.addPreferredGap(ComponentPlacement.RELATED))
-										.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup().addGap(45)
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-														.addComponent(tfcpfBusca, Alignment.LEADING).addComponent(
-																comboBox, Alignment.LEADING, 0, 208, Short.MAX_VALUE))
-												.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-												.addComponent(btBusca, GroupLayout.PREFERRED_SIZE, 134,
-														GroupLayout.PREFERRED_SIZE))
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(tfID, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(tfNome, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-												.addComponent(tfcpf).addComponent(tfRG)))))
-				.addGap(90)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup().addContainerGap()
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tfID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(tfComplemento)
+										.addComponent(tfNumero, GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+										.addComponent(tfEndereco)
+										.addComponent(tfBairro)
+										.addComponent(tfCidade)
+										.addComponent(tfCEP)
+										.addComponent(tfTelefone, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+										.addComponent(tfEmail, 395, 395, 395)
+										.addComponent(btLimpar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btSalvar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btAtualizar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+										.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+											.addGap(46)
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(tfcpfBusca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addComponent(comboBox, 0, 208, Short.MAX_VALUE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(btBusca, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)))))
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(tfID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(tfNome, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+									.addComponent(tfcpf)
+									.addComponent(tfRG)))))
+					.addGap(90))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tfID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNmero))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tfNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tfNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNome))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tfcpf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tfcpf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblCpf))
-				.addGap(3)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tfRG, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
+					.addGap(3)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tfRG, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblRg))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(tfEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(4).addComponent(lblEmail)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(tfTelefone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblTelefone))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-														.addComponent(tfCEP, GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblCep))
-												.addPreferredGap(ComponentPlacement.RELATED).addComponent(tfCidade,
-														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE))
-										.addComponent(lblCidade))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(tfBairro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblBairro))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(tfEndereco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblEndereo))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(tfComplemento, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblComplemento))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(tfNumero, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblNmero_1))))
-				.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(btSalvar)
-				.addPreferredGap(ComponentPlacement.RELATED).addComponent(btLimpar).addGap(33)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tfcpfBusca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(tfEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblEmail)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(tfTelefone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTelefone))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(tfCEP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCep))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(tfCidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblCidade))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(tfBairro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblBairro))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(tfEndereco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblEndereo))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(tfComplemento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblComplemento))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(tfNumero, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNmero_1))))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btSalvar)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btLimpar)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btAtualizar)
+					.addGap(27)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tfcpfBusca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblCpf_1))
-				.addPreferredGap(ComponentPlacement.UNRELATED)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNomeDosContatos).addComponent(btBusca))
-				.addGap(55)));
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btBusca)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNomeDosContatos))
+					.addGap(23))
+		);
 		contentPane.setLayout(gl_contentPane);
 	}
 }
